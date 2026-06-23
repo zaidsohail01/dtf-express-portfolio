@@ -294,7 +294,9 @@ video:-moz-full-screen {
     max-width: 100px;
     max-height: 60px;
   }
-}.services-cards .section-heading{
+}
+
+.services-cards .section-heading{
   text-align: center;
   margin-bottom: 60px;
 }
@@ -404,4 +406,56 @@ video:-moz-full-screen {
   .company-card h5{
     font-size: 18px;
   }
+}
+
+/* --- Safe Mobile Only Responsive Fixes --- */
+@media screen and (max-width: 768px) {
+    
+    /* 1. Two Videos Section (image_43746a.jpg Fix) */
+    /* Target the container wrapping the two videos */
+    .video-section-container, 
+    .videos-wrapper { 
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 25px !important;
+        align-items: center !important;
+    }
+    .video-section-container video,
+    .videos-wrapper video {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    /* 2. Map and Social Grid Section (image_437184.png Fix) */
+    /* Stack the map and the social cards vertically on mobile */
+    .map-social-parent-container {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+    }
+    .map-container-class, .map-container-class iframe {
+        width: 100% !important;
+        height: 300px !important;
+    }
+    /* Make the 6 social buttons display in a clean 2-column grid on mobile */
+    .social-grid-container {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px !important;
+        width: 100% !important;
+    }
+
+    /* 3. Clients Logos Grid (image_4371a6.png Fix) */
+    /* Force logos to stack nicely or wrap into columns instead of stretching */
+    .clients-logo-wrapper, .logos-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+        justify-items: center !important;
+    }
+    .clients-logo-wrapper img, .logos-grid img {
+        max-width: 120px !important;
+        height: auto !important;
+    }
 }
