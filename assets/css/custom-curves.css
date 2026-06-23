@@ -1,0 +1,407 @@
+/* Curved right-side image used on the main banner */
+.right-image .curved-right{
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:cover;
+  border-radius: 0 60px 60px 0;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+.right-image .curved-right:hover{
+  transform: translateX(6px) scale(1.02);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.22);
+}
+@media (max-width: 767px){
+  .right-image .curved-right{ border-radius: 0 36px 36px 0; }
+}
+
+/* Navbar brand: small icon + text */
+.logo{ display:flex; align-items:center; gap:10px; }
+.logo .nav-logo-image{
+  width:60px;
+  height:auto;
+  object-fit:contain;
+  border-radius:0;
+  box-shadow:none;
+  display:inline-block;
+  margin-right:8px;
+}
+.logo .nav-brand-text{
+  font-family: 'Poppins', sans-serif; /* matches page font, nicer appearance */
+  font-weight:400; /* normal weight to remove bolding */
+  font-size:24px; /* bigger like original layout */
+  color:#2a2a2a;
+  letter-spacing:0; /* remove forced spacing */
+  text-transform:none; /* keep original capitalization */
+}
+@media (max-width: 991px){
+  .logo .nav-brand-text{ display:inline-block; font-size:20px; }
+}
+/* accent color for second word to match original DigiMedia look */
+.logo .nav-brand-text em{
+  color: #4da6e7;
+  font-style: normal;
+  font-weight:400; /* normal weight for even balance */
+}
+
+/* Social contact section */
+.social-contact-section{
+  padding: 30px 0;
+}
+.social-contact-section .section-heading h4{
+  font-size: 35px;
+  font-weight: 700;
+  color: #2a2a2a;
+  margin-bottom: 15px;
+}
+.social-contact-section .section-heading h4 em{
+  color: #4da6e7;
+  font-style: normal;
+}
+.social-contact-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+  max-width: 800px;
+}
+.social-contact-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 25px 20px;
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.35s ease;
+  border: 2px solid transparent;
+}
+.social-contact-item i{
+  font-size: 32px;
+  color: #4da6e7;
+  margin-bottom: 12px;
+  display: block;
+}
+.social-contact-item span{
+  color: #2a2a2a;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+}
+.social-contact-item:hover{
+  background-color: #4da6e7;
+  border-color: #4da6e7;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(77, 166, 231, 0.25);
+}
+.social-contact-item:hover i,
+.social-contact-item:hover span{
+  color: #fff;
+}
+@media (max-width: 767px){
+  .social-contact-grid{
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 15px;
+  }
+  .social-contact-item{
+    padding: 20px 15px;
+  }
+  .social-contact-item i{
+    font-size: 28px;
+  }
+}
+
+/* Service video styles */
+.video-wrap{
+  width:100%;
+  max-width:92%; /* larger frame - adjusted per request */
+  margin:0 auto;
+  overflow:hidden;
+  border-radius:8px;
+  padding: 0 8px; /* gap between video columns */
+  position:relative;
+}
+.service-video{
+  width:100%;
+  max-height:420px; /* slightly larger frame */
+  height:auto;
+  display:block;
+  background-color:#000;
+  border-radius:16px; /* stronger curve for better design */
+  box-shadow: 0 14px 36px rgba(0,0,0,0.14);
+  object-fit:cover;
+}
+
+/* Overlay button that appears on hover */
+.video-overlay{
+  position:absolute;
+  left:0; right:0; top:0; bottom:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .22s ease, background-color .22s ease;
+  border-radius:16px;
+}
+.video-wrap:hover .video-overlay{ opacity:1; pointer-events:auto; background: linear-gradient(rgba(0,0,0,0.0), rgba(0,0,0,0.18)); }
+.video-enhance{
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 10px 16px;
+  border-radius: 28px;
+  font-weight:600;
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.video-enhance i{ font-size:16px; }
+.video-enhance:hover{ background: rgba(77,166,231,0.95); border-color: rgba(77,166,231,0.95); }
+
+@media (max-width: 767px){
+  .video-wrap{ padding: 0; max-width:100%; }
+}
+
+/* Fullscreen video: show entire video without cropping */
+video:fullscreen,
+video:-webkit-full-screen,
+video:-moz-full-screen {
+  object-fit: contain !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+}
+
+/* Services/Company Cards Section */
+.services-cards{
+  padding: 80px 0;
+  background-color: #fff;
+  }
+
+/* smaller picture for custom t-shirts service */
+.services ul.nacc li .right-image {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.services ul.nacc li .right-image img.small-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit:contain;
+  /* previously limited dimensions removed so it fills container */
+}
+
+/* Clients Section */
+.clients-section{
+  padding: 80px 0;
+  background-color: #fff; /* make white so logos pop */
+}
+.clients-section .section-heading{
+  text-align: center;
+  margin-bottom: 50px;
+}
+.clients-section .section-heading h6{
+  font-size: 15px;
+  font-weight: 700;
+  color: #4da6e7;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.clients-section .section-heading h4{
+  font-size: 35px;
+  font-weight: 700;
+  color: #2a2a2a;
+  margin-bottom: 25px;
+  text-transform: capitalize;
+}
+.clients-section .section-heading h4 em{
+  color: #4da6e7;
+  font-style: normal;
+}
+.clients-section .line-dec{
+  width: 50px;
+  height: 2px;
+  background-color: #4da6e7;
+  margin: 0 auto;
+}
+.clients-grid{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px; /* further reduced gap between logos */
+  flex-wrap: nowrap;
+  margin-top: 30px;
+  animation: scrollLogos 40s linear infinite;
+}
+@keyframes scrollLogos{
+  0%{transform: translateX(0);} 
+  100%{transform: translateX(-50%);} /* adjust depending on content width */
+}
+.client-logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  transition: all 0.35s ease;
+  padding: 20px;
+  /* removed background box per request */
+  background: transparent;
+  border-radius: 0;
+}
+.client-logo img{
+  max-width: 180px;
+  max-height: 120px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.8;
+  filter: grayscale(10%);
+  transition: all 0.35s ease;
+}
+.client-logo:hover img{
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.15);
+}
+@media (max-width: 991px){
+  .clients-section{
+    padding: 60px 0;
+  }
+  .clients-grid{
+    gap: 30px;
+  }
+  .client-logo img{
+    max-width: 120px;
+    max-height: 70px;
+  }
+}
+@media (max-width: 767px){
+  .clients-section{
+    padding: 50px 0;
+  }
+  .clients-grid{
+    gap: 20px;
+  }
+  .client-logo{
+    min-height: 80px;
+    padding: 15px;
+  }
+  .client-logo img{
+    max-width: 100px;
+    max-height: 60px;
+  }
+}.services-cards .section-heading{
+  text-align: center;
+  margin-bottom: 60px;
+}
+.service-card,
+.company-card{
+  background: #f9f9f9;
+  padding: 50px 30px;
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.35s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  border: 2px solid transparent;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+.service-card:hover,
+.company-card:hover{
+  transform: translateY(-12px);
+  background: #fff;
+  box-shadow: 0 20px 50px rgba(77, 166, 231, 0.2);
+  border-color: #4da6e7;
+}
+.card-icon,
+.company-icon{
+  font-size: 56px;
+  color: #4da6e7;
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(77, 166, 231, 0.1), rgba(77, 166, 231, 0.05));
+  border-radius: 12px;
+}
+.company-logo{
+  max-width: 70px;
+  max-height: 70px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.service-card h5,
+.company-card h5{
+  font-size: 22px;
+  font-weight: 700;
+  color: #2a2a2a;
+  margin: 0;
+  text-transform: capitalize;
+  letter-spacing: 0.3px;
+}
+.service-card h5 em,
+.company-card h5 em{
+  color: #4da6e7;
+  font-style: normal;
+}
+.service-card p{
+  font-size: 14px;
+  color: #888;
+  line-height: 1.6;
+  margin: 0;
+}
+@media (max-width: 1200px){
+  .service-card,
+  .company-card{
+    padding: 40px 25px;
+    min-height: 180px;
+  }
+}
+@media (max-width: 991px){
+  .services-cards{
+    padding: 60px 0;
+  }
+  .service-card,
+  .company-card{
+    padding: 35px 20px;
+    min-height: 160px;
+  }
+  .card-icon,
+  .company-icon{
+    font-size: 48px;
+    width: 70px;
+    height: 70px;
+  }
+}
+@media (max-width: 767px){
+  .services-cards{
+    padding: 50px 0;
+  }
+  .service-card,
+  .company-card{
+    padding: 30px 20px;
+    margin-bottom: 20px;
+    min-height: 140px;
+  }
+  .card-icon,
+  .company-icon{
+    font-size: 40px;
+    width: 60px;
+    height: 60px;
+  }
+  .service-card h5,
+  .company-card h5{
+    font-size: 18px;
+  }
+}
