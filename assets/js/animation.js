@@ -174,6 +174,9 @@
     };
 
     WOW.prototype.disabled = function() {
+      if (window.innerWidth <= 767) {
+        return true;
+      }
       return !this.config.mobile && this.util().isMobile(navigator.userAgent);
     };
 

@@ -35,6 +35,31 @@
         }
       }
   });
+
+  // Brand/clients logo carousel - fast, smooth, autoplay, GPU-friendly on mobile
+  $('.clients-grid').owlCarousel({
+      items: 4,
+      loop: true,
+      margin: 15,
+      nav: false,
+      dots: false,
+      autoplay: true,
+      autoplayTimeout: 2000,
+      autoplayHoverPause: false,
+      smartSpeed: 400,
+      lazyLoad: true,
+      responsive: {
+          0:{
+              items: 2
+          },
+          576:{
+              items: 3
+          },
+          992:{
+              items: 4
+          }
+      }
+  });
 	
 
 	// Menu Dropdown Toggle
@@ -150,25 +175,53 @@
 
 })(window.jQuery);
 
-// Ensure service videos are muted and volume is zero (extra safety)
+// Service videos: full autoplay on desktop, tap-to-play on mobile for performance
 document.addEventListener('DOMContentLoaded', function(){
   var vids = document.querySelectorAll('.service-video');
+  var isMobile = window.innerWidth <= 767;
+
   vids.forEach(function(v){
     try{
       v.muted = true;
       v.volume = 0;
-      // Re-apply if the video starts playing later
-      v.addEventListener('play', function(){ v.muted = true; v.volume = 0; }, {passive:true});
-      // If a video is paused unexpectedly, try to resume it
-      v.addEventListener('pause', function(){
-        try{ if(!v.ended) v.play(); }catch(e){}
-      });
-      // Ensure loop/play in case browser throttles playback on visibility change
-      document.addEventListener('visibilitychange', function(){
-        if(document.visibilityState === 'visible'){
-          try{ v.play(); }catch(e){}
+
+      if (isMobile) {
+        // Mobile: do not autoplay. Show poster (lightweight static fallback) and
+        // only fetch/play the video once the user actually taps it.
+        v.removeAttribute('autoplay');
+        v.preload = 'none';
+        v.pause();
+
+        var playOnTap = function(){
+          v.play().catch(function(){ /* ignore play() rejection */ });
+        };
+        var wrap = v.closest('.video-wrap');
+        (wrap || v).addEventListener('click', playOnTap, {passive: true});
+
+        // Pause again if it scrolls out of view, so it doesn't keep
+        // decoding frames in the background on mobile.
+        if ('IntersectionObserver' in window) {
+          var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){
+              if (!entry.isIntersecting) {
+                try{ v.pause(); }catch(e){}
+              }
+            });
+          }, {threshold: 0.25});
+          io.observe(v);
         }
-      });
+      } else {
+        // Desktop: keep original always-on behavior.
+        v.addEventListener('play', function(){ v.muted = true; v.volume = 0; }, {passive:true});
+        v.addEventListener('pause', function(){
+          try{ if(!v.ended) v.play(); }catch(e){}
+        });
+        document.addEventListener('visibilitychange', function(){
+          if(document.visibilityState === 'visible'){
+            try{ v.play(); }catch(e){}
+          }
+        });
+      }
     }catch(e){ /* ignore */ }
   });
 });

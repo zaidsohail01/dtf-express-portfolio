@@ -8,12 +8,13 @@
   box-shadow: 0 12px 30px rgba(0,0,0,0.18);
   transition: transform .35s ease, box-shadow .35s ease;
 }
+
 .right-image .curved-right:hover{
   transform: translateX(6px) scale(1.02);
   box-shadow: 0 18px 40px rgba(0,0,0,0.22);
 }
 @media (max-width: 767px){
-  .right-image .curved-right{ border-radius: 0 36px 36px 0; }
+  .right-image .curved-right{ border-radius: 0 36px 36px 0; box-shadow: none; }
 }
 
 /* Navbar brand: small icon + text */
@@ -164,6 +165,8 @@
 
 @media (max-width: 767px){
   .video-wrap{ padding: 0; max-width:100%; }
+  .service-video{ box-shadow: none; }
+  .video-enhance{ backdrop-filter: none; }
 }
 
 /* Fullscreen video: show entire video without cropping */
@@ -229,17 +232,7 @@ video:-moz-full-screen {
   margin: 0 auto;
 }
 .clients-grid{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px; /* further reduced gap between logos */
-  flex-wrap: nowrap;
   margin-top: 30px;
-  animation: scrollLogos 40s linear infinite;
-}
-@keyframes scrollLogos{
-  0%{transform: translateX(0);} 
-  100%{transform: translateX(-50%);} /* adjust depending on content width */
 }
 .client-logo{
   display: flex;
@@ -262,6 +255,34 @@ video:-moz-full-screen {
   filter: grayscale(10%);
   transition: all 0.35s ease;
 }
+
+/* GPU hardware-acceleration for Owl Carousel: offloads slide rendering
+   to the compositor so autoplay scrolling stays smooth on mobile.
+   Note: .owl-stage's transform is set dynamically by Owl Carousel itself
+   to position slides, so we only hint layer promotion via will-change
+   here rather than overriding the transform value (which would freeze
+   the carousel in place). */
+.owl-carousel .owl-stage {
+    will-change: transform !important;
+}
+.owl-carousel .owl-item {
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+}
+
+/* ==========================================================================
+   TOP SECTION PADDING FIX (PREVENTS HEADER OVERLAP ON MOBILE)
+   ========================================================================== */
+@media screen and (max-width: 767px) {
+    .services,
+    #services {
+        padding-top: 140px !important; /* Pushes the section down so header doesn't cover the heading */
+    }
+    
+    .services .section-heading {
+        margin-bottom: 30px !important;
+    }
+}
 .client-logo:hover img{
   opacity: 1;
   filter: grayscale(0%);
@@ -270,9 +291,6 @@ video:-moz-full-screen {
 @media (max-width: 991px){
   .clients-section{
     padding: 60px 0;
-  }
-  .clients-grid{
-    gap: 30px;
   }
   .client-logo img{
     max-width: 120px;
@@ -283,9 +301,6 @@ video:-moz-full-screen {
   .clients-section{
     padding: 50px 0;
   }
-  .clients-grid{
-    gap: 20px;
-  }
   .client-logo{
     min-height: 80px;
     padding: 15px;
@@ -293,6 +308,7 @@ video:-moz-full-screen {
   .client-logo img{
     max-width: 100px;
     max-height: 60px;
+    filter: none;
   }
 }
 
@@ -300,6 +316,93 @@ video:-moz-full-screen {
   text-align: center;
   margin-bottom: 60px;
 }
+
+/* Mobile overrides for screens under 768px */
+@media screen and (max-width: 768px) {
+  .header-area {
+    padding: 0 15px !important;
+    height: auto !important;
+    min-height: 70px !important;
+  }
+  .header-area .container {
+    padding: 0 !important;
+  }
+  /* Force main nav container to align items properly */
+  .header-area .main-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important; /* Perfect vertical centering for logo and hamburger */
+    justify-content: space-between !important;
+    height: 70px !important;
+    position: relative !important;
+  }
+  .header-area .main-nav .logo {
+    margin: 0 !important;
+    line-height: 1 !important;
+  }
+  /* Force hamburger menu icon to align vertically centered */
+  .header-area .main-nav .menu-trigger {
+    display: block !important;
+    position: absolute !important;
+    right: 15px !important;
+    top: 55% !important; /* Move to center boundary */
+    transform: translateY(-50%) !important; /* Absolute perfect vertical center trick */
+    margin: 0 !important;
+  }
+  .header-area .main-nav .nav {
+    margin-top: 0 !important;
+    width: 100% !important;
+  }
+
+  .main-banner .left-content,
+  .main-banner .left-content h2,
+  .main-banner .left-content p {
+    text-align: center !important;
+  }
+  .main-banner .left-content {
+    padding: 0 15px !important;
+  }
+  .main-banner .left-content p {
+    margin: 0 auto !important;
+    max-width: 100% !important;
+    padding: 0 15px !important;
+  }
+
+  .services ul.nacc li .row {
+    gap: 25px !important;
+  }
+  .services ul.nacc li .col-lg-6 {
+    margin-bottom: 25px !important;
+  }
+  .services ul.nacc li .video-wrap {
+    margin-bottom: 25px !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+  }
+  .service-video {
+    border-radius: 18px !important;
+    margin-bottom: 25px !important;
+  }
+
+  .social-contact-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    width: 100% !important;
+    padding: 0 10px !important;
+  }
+  .social-contact-item {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 18px 12px !important;
+  }
+  .social-contact-item i,
+  .social-contact-item span {
+    margin: 0 auto !important;
+  }
+}
+
 .service-card,
 .company-card{
   background: #f9f9f9;
@@ -408,6 +511,25 @@ video:-moz-full-screen {
   }
 }
 
+/* Global/Desktop Styles for Pre-Header (Slim Height Fix) */
+.pre-header {
+  background-color: #f7f7f7;
+  height: 45px !important; /* Forces a slim modern bar on laptop */
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  border-bottom: 1px solid #eee;
+}
+
+/* Ensure the layout container centers vertically on desktop */
+.pre-header .container,
+.pre-header .row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+}
+
 /* --- Safe Mobile Only Responsive Fixes --- */
 @media screen and (max-width: 768px) {
     
@@ -458,4 +580,140 @@ video:-moz-full-screen {
         max-width: 120px !important;
         height: auto !important;
     }
+}
+
+@media screen and (max-width: 768px) {
+    .pre-header {
+        display: block !important;
+        padding: 8px 0 !important;
+    }
+    .pre-header-container {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0 10px !important;
+        width: 100% !important;
+    }
+    .pre-header-left {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 8px !important; /* Tight spacing for email & icons */
+    }
+    .pre-header-socials {
+        display: flex !important;
+        gap: 8px !important;
+    }
+    .pre-header-left a, .pre-header-right a {
+        font-size: 11px !important; /* Compact font to fit everything */
+        white-space: nowrap !important;
+    }
+    .pre-header-left a i, .pre-header-right a i {
+        font-size: 11px !important;
+    }
+}
+@media screen and (max-width: 767px) {
+  /* ==========================================================================
+     THE ABSOLUTE FOOLPROOF POSITIONING FIX FOR PRE-HEADER MOBILE
+     ========================================================================== */
+  /* 1. Make the pre-header parent relative with a fixed height */
+  .pre-header {
+    position: relative !important;
+    display: block !important;
+    height: 70px !important; /* Forces enough height to hold items in one horizontal line */
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* 2. Force the container to take full width */
+  .pre-header .container,
+  .pre-header .row {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* 3. EMAIL: Force lock it to the middle-left side */
+  .pre-header ul.left-info,
+  .pre-header .left-content,
+  .pre-header div[class*="col-"]:first-child {
+    position: absolute !important;
+    left: 12px !important;
+    top: 15px !important; /* Clean alignment from top */
+    display: flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
+  /* 4. MASTER FIX: Force Right Side Items (Phone & Social Icons) into one row on the extreme top-right */
+  .pre-header ul.right-info,
+  .pre-header .right-content,
+  .pre-header div[class*="col-"]:nth-child(2) {
+    position: absolute !important;
+    right: 12px !important; /* Flushed to the absolute right side */
+    top: 15px !important; /* Perfectly leveled with the email */
+    display: flex !important;
+    flex-direction: row !important; /* Strict horizontal row alignment */
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 12px !important; /* Clean space between phone text and social badges */
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    width: auto !important;
+  }
+
+  /* Typography fixes to stop text breaking onto new lines */
+  .pre-header li, 
+  .pre-header span, 
+  .pre-header a {
+    font-size: 11px !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  /* 5. Social Icons list layout reset */
+  .pre-header ul.social-icons {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 6px !important; /* Space between fb and insta circles */
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
+  /* 6. Perfect Circle Sizing and Centering */
+  .pre-header ul.social-icons li,
+  .pre-header ul.social-icons a {
+    width: 24px !important; /* Scaled up from 20px */
+    height: 24px !important; /* Scaled up from 20px */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background-color: #bbb !important;
+    border-radius: 50% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Center alignment for 'f' and 'instagram' vectors inside the badges */
+  .pre-header ul.social-icons li i,
+  .pre-header ul.social-icons a i,
+  .pre-header ul.social-icons i {
+    font-size: 12px !important; /* Scaled up from 9px/10px */
+    color: #fff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 24px !important; /* Matches the new 24px height for perfect vertical centering */
+    text-align: center !important;
+    display: block !important;
+  }
 }
